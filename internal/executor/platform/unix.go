@@ -21,7 +21,7 @@ func (platform *UnixPlatform) ContainerAgentVolumeDir() string {
 }
 
 func (platform *UnixPlatform) CirrusDir() string {
-	return "/tmp/cirrus-ci"
+	return "/tmp"
 }
 
 func (platform *UnixPlatform) ContainerAgentImage(version string) string {

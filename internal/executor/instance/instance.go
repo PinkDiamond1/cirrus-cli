@@ -292,14 +292,7 @@ func RunContainerizedAgent(ctx context.Context, config *runconfig.RunConfig, par
 
 		additionalContainersWG.Add(1)
 		go func() {
-			if err := runAdditionalContainer(
-				additionalContainersCtx,
-				logger,
-				additionalContainer,
-				backend,
-				cont.ID,
-				config.ContainerOptions,
-			); err != nil {
+			if err := runAdditionalContainer(additionalContainersCtx, logger, additionalContainer, params, backend, cont.ID, config.ContainerOptions); err != nil {
 				additionalContainersErrChan <- err
 			}
 			additionalContainersWG.Done()
@@ -340,6 +333,7 @@ func runAdditionalContainer(
 	ctx context.Context,
 	logger *echelon.Logger,
 	additionalContainer *api.AdditionalContainer,
+	params *Params,
 	backend containerbackend.ContainerBackend,
 	connectToContainer string,
 	containerOptions options.ContainerOptions,
@@ -353,6 +347,13 @@ func runAdditionalContainer(
 		Image:   additionalContainer.Image,
 		Command: additionalContainer.Command,
 		Env:     additionalContainer.Environment,
+		Mounts: []containerbackend.ContainerMount{
+			{
+				Type:   containerbackend.MountTypeVolume,
+				Source: params.AgentVolumeName,
+				Target: params.Platform.ContainerAgentVolumeDir(),
+			},
+		},
 		Resources: containerbackend.ContainerResources{
 			NanoCPUs: int64(additionalContainer.Cpu * nano),
 			Memory:   int64(additionalContainer.Memory * mebi),

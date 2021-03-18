@@ -5,7 +5,7 @@ task:
   print_env_script:
     - env
   check_static_script:
-    - test "$CIRRUS_WORKING_DIR" = "/tmp/cirrus-ci/working-dir"
+    - test "$CIRRUS_WORKING_DIR" = "/tmp/cirrus-ci-build"
     - test "$CI" = "true"
     - test "$CONTINUOUS_INTEGRATION" = "true"
     - test "$CIRRUS_CI" = "true"

@@ -2,7 +2,7 @@ package platform
 
 const (
 	// workingVolumeWorkingDir is a working directory relative to the CirrusDir().
-	workingVolumeWorkingDir = "working-dir"
+	workingVolumeWorkingDir = "cirrus-ci-build"
 
 	// workingVolumeAgentBinary is the name of the agent binary relative to the CirrusDir().
 	workingVolumeAgentBinary = "cirrus-ci-agent"
