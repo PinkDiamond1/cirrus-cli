@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:11.5
 
 # Working directory test
 COPY . .
